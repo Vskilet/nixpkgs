@@ -1542,6 +1542,8 @@ in
 
   interlock = callPackage ../servers/interlock {};
 
+  jellyfin = callPackage ../servers/jellyfin { };
+
   kapacitor = callPackage ../servers/monitoring/kapacitor { };
 
   kisslicer = callPackage ../tools/misc/kisslicer { };
