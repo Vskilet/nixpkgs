@@ -17501,6 +17501,8 @@ in
     python = python27;
   };
 
+  git-quick-stats = callPackage ../development/tools/git-quick-stats {};
+
   git-review = callPackage ../applications/version-management/git-review { };
 
   gitolite = callPackage ../applications/version-management/gitolite { };
@@ -22605,7 +22607,8 @@ in
     nix
     nix1
     nixStable
-    nixUnstable;
+    nixUnstable
+    nixFlakes;
 
   nixops = callPackage ../tools/package-management/nixops { };
 
@@ -23426,4 +23429,7 @@ in
   newlibCross = callPackage ../development/misc/newlib {
     stdenv = crossLibcStdenv;
   };
+
+  wasmtime = callPackage ../development/interpreters/wasmtime {};
+
 }
