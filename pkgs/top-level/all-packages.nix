@@ -3722,7 +3722,7 @@ in
     inherit (darwin.apple_sdk.frameworks) AVFoundation AudioToolbox ImageIO CoreMedia Foundation CoreGraphics MediaToolbox;
   };
 
-  kbfs = callPackage ../tools/security/kbfs { };
+  kbfs = callPackage ../tools/security/keybase/kbfs.nix { };
 
   keybase-gui = callPackage ../tools/security/keybase/gui.nix { };
 
@@ -7598,6 +7598,15 @@ in
     stdenv = overrideCC stdenv gcc6; # with gcc-7: undefined reference to `__divmoddi4'
   });
   inherit (rust) cargo rustc;
+
+  rust_1_35 = callPackage ../development/compilers/rust-1_35 ({
+    inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
+    llvm = llvm_7;
+  } // stdenv.lib.optionalAttrs (stdenv.cc.isGNU && stdenv.hostPlatform.isi686) {
+    stdenv = overrideCC stdenv gcc6; # with gcc-7: undefined reference to `__divmoddi4'
+  });
+  cargo_1_35 = rust_1_35.cargo;
+  rustc_1_35 = rust_1_35.rustc;
 
   buildRustCrate = callPackage ../build-support/rust/build-rust-crate { };
   buildRustCrateHelpers = callPackage ../build-support/rust/build-rust-crate/helpers.nix { };
@@ -17342,6 +17351,7 @@ in
   firefox-unwrapped = firefoxPackages.firefox;
   firefox-esr-52-unwrapped = firefoxPackages.firefox-esr-52;
   firefox-esr-60-unwrapped = firefoxPackages.firefox-esr-60;
+  firefox-esr-68-unwrapped = firefoxPackages.firefox-esr-68;
   tor-browser-unwrapped = firefoxPackages.tor-browser;
   icecat-unwrapped = firefoxPackages.icecat;
 
@@ -17349,7 +17359,8 @@ in
   firefox-wayland = wrapFirefox firefox-unwrapped { gdkWayland = true; };
   firefox-esr-52 = wrapFirefox firefox-esr-52-unwrapped { };
   firefox-esr-60 = wrapFirefox firefox-esr-60-unwrapped { };
-  firefox-esr = firefox-esr-60;
+  firefox-esr-68 = wrapFirefox firefox-esr-68-unwrapped { };
+  firefox-esr = firefox-esr-68;
   icecat = wrapFirefox icecat-unwrapped { };
 
   firefox-bin-unwrapped = callPackage ../applications/networking/browsers/firefox-bin {
