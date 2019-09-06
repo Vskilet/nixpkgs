@@ -11,7 +11,8 @@ buildGoModule rec {
     sha256 = "03wd6mn9jr1hr3qxg1r707ibi1s9511y97bfrmzka4mrsymgamxa";
   };
 
-  modSha256 = "14bqxx2hcr8yhcd5hi087pyc1hzqmr13p2fqb3nnsx12j7n07gww";
+  modSha256 = "0sa43p7a3rqi9m7s3f25xj1jq5vwlrcaz0panvp9vhxhyxzn1ni7";
+  #modSha256 = "14bqxx2hcr8yhcd5hi087pyc1hzqmr13p2fqb3nnsx12j7n07gww";
   meta = with stdenv.lib; {
     homepage = https://github.com/tulir/mautrix-whatsapp;
     description = "Matrix <-> Whatsapp hybrid puppeting/relaybot bridge";
