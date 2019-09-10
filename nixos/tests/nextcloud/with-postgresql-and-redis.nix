@@ -27,7 +27,7 @@ in {
           dbtype = "pgsql";
           dbname = "nextcloud";
           dbuser = "nextcloud";
-          dbhost = "/run/postgresql";
+          dbhost = "localhost:5432";
           inherit adminuser;
           adminpassFile = toString (pkgs.writeText "admin-pass-file" ''
             ${adminpass}
