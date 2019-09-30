@@ -1,8 +1,8 @@
 { stdenv, fetchurl, mono, curl, makeWrapper }:
 
 stdenv.mkDerivation rec {
-  name = "jackett-${version}";
-  version = "0.11.457";
+  pname = "jackett";
+  version = "0.11.751";
 
   src = fetchurl {
     url = "https://github.com/Jackett/Jackett/releases/download/v${version}/Jackett.Binaries.Mono.tar.gz";
