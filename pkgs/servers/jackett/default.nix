@@ -9,14 +9,14 @@ let
     else abort "Unsupported architecture";
 in stdenv.mkDerivation rec {
   pname = "jackett";
-  version = "0.11.751";
+  version = "0.11.817";
 
   src = fetchurl {
     url = "https://github.com/Jackett/Jackett/releases/download/v${version}/Jackett.Binaries.Linux${arch}.tar.gz";
     sha256 = with stdenv.hostPlatform;
-             if isAarch64 then "1qidc8qx4jhxvls304w61pypg74m0vw22bp9hacrdd901an8fjcw"
-             else if isAarch32 then "1sgl3nxbh97xl2781m6yz3pw8j278anxkg5hczp0bk97a10g4cd7"
-             else "09y9pck35pj2g89936zallxr3hanmbgp8jc42nj2js68l0z64qz3";
+             if isAarch64 then "0bnz3rwljiabzm6vhs4dis3556h9p0l5ynj98a1am1khxgkqk81h"
+             else if isAarch32 then "0jllrzkk1zxl0h365y2d778y7vni8lcg2bj7qb6i0ajxmy25gvib"
+             else "1bln9fplw5zhyahdnqqby2as43wvmhch3hb1ik1xngh38l75jdyp";
   };
 
   buildInputs = [ makeWrapper ];
