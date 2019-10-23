@@ -651,7 +651,7 @@ in {
       "d ${cfg.statePath} 0750 ${cfg.user} ${cfg.group} -"
       "d ${cfg.statePath}/builds 0750 ${cfg.user} ${cfg.group} -"
       "d ${cfg.statePath}/config 0750 ${cfg.user} ${cfg.group} -"
-      "D ${cfg.statePath}/config/initializers 0750 ${cfg.user} ${cfg.group} -"
+      "d ${cfg.statePath}/config/initializers 0750 ${cfg.user} ${cfg.group} -"
       "d ${cfg.statePath}/db 0750 ${cfg.user} ${cfg.group} -"
       "d ${cfg.statePath}/log 0750 ${cfg.user} ${cfg.group} -"
       "d ${cfg.statePath}/repositories 2770 ${cfg.user} ${cfg.group} -"
@@ -853,7 +853,7 @@ in {
 
             initial_root_password="$(<'${cfg.initialRootPasswordFile}')"
             ${gitlab-rake}/bin/gitlab-rake gitlab:db:configure GITLAB_ROOT_PASSWORD="$initial_root_password" \
-                                                               GITLAB_ROOT_EMAIL='${cfg.initialRootEmail}'
+                                                               GITLAB_ROOT_EMAIL='${cfg.initialRootEmail}' > /dev/null
 
             # We remove potentially broken links to old gitlab-shell versions
             rm -Rf ${cfg.statePath}/repositories/**/*.git/hooks
