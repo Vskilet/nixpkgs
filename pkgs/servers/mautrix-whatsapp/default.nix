@@ -13,7 +13,7 @@ buildGoModule {
 
   patches = [ ./0001-Add-missing-go-dependencies-to-go.sum.patch ];
 
-  modSha256 = "0y0im3dz5z3rcsmnxkk0l6xqwcyxb0bi9h4arw7zblfy16iw6vrr";
+  modSha256 = "03siqazacbwp0l44hpm1bdr20ds8ivy32nvw1pl6qk7y8fr848j6";
 
   meta = with stdenv.lib; {
     homepage = https://github.com/tulir/mautrix-whatsapp;
