@@ -46,9 +46,10 @@ in
       username = mkOption {
         type = types.str;
         default = "roundcube";
-        description = "Username for the postgresql connection.
-        If <literal>database.host</literal> is set to <literal>localhost</literal>, a unix user an group of the same name will be created as well.
-        ";
+        description = ''
+          Username for the postgresql connection.
+          If <literal>database.host</literal> is set to <literal>localhost</literal>, a unix user and group of the same name will be created as well.
+        '';
       };
       host = mkOption {
         type = types.str;
@@ -93,7 +94,7 @@ in
 
   config = mkIf cfg.enable {
     # backward compatibility: if password is set but not passwordFile, make one.
-    services.roundcube.database.passwordFile = mkIf (!localDB && cfg.database.password != "") (mkDefault pkgs.writeText "roundcube-password" cfg.database.password);
+    services.roundcube.database.passwordFile = mkIf (!localDB && cfg.database.password != "") (mkDefault ("${pkgs.writeText "roundcube-password" cfg.database.password}"));
     warnings = lib.optional (!localDB && cfg.database.password != "") "services.roundcube.database.password is deprecated and insecure; use services.roundcube.database.passwordFile instead";
 
     environment.etc."roundcube/config.inc.php".text = ''
@@ -102,7 +103,7 @@ in
       ${lib.optionalString (!localDB) "$password = file_get_contents('${cfg.database.passwordFile}');"}
 
       $config = array();
-      $config['db_dsnw'] = 'pgsql://${cfg.database.username}${lib.optionalString (!localDB) ":' . $password '"}@${if localDB then "unix(/run/postgresql)" else cfg.database.host}/${cfg.database.dbname}';
+      $config['db_dsnw'] = 'pgsql://${cfg.database.username}${lib.optionalString (!localDB) ":' . $password . '"}@${if localDB then "unix(/run/postgresql)" else cfg.database.host}/${cfg.database.dbname}';
       $config['log_driver'] = 'syslog';
       $config['max_message_size'] = '25M';
       $config['plugins'] = [${concatMapStringsSep "," (p: "'${p}'") cfg.plugins}];
@@ -191,18 +192,12 @@ in
             ${psql} -f ${cfg.package}/SQL/postgres.initial.sql
           fi
 
-          if [ ! -f /var/lib/roundcube/des_key ]; then
-            base64 /dev/urandom | head -c 24 > /var/lib/roundcube/des_key;
-          fi
-
           ${pkgs.php}/bin/php ${cfg.package}/bin/update.sh
         '';
         serviceConfig = {
           Type = "oneshot";
           StateDirectory = "roundcube";
           User = if localDB then user else "nginx";
-          # so that the des_key is not world readable
-          StateDirectoryMode = "0700";
         };
       }
     ];
