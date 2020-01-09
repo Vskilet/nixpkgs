@@ -378,7 +378,7 @@ in (stdenv.mkDerivation rec {
     ++ lib.optional kdeIntegration kdelibs4;
 
   passthru = {
-    inherit srcs jdk;
+    inherit srcs jdk pname;
   };
 
   requiredSystemFeatures = [ "big-parallel" ];
