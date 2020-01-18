@@ -213,7 +213,11 @@ in
 
   dotnetCorePackages = recurseIntoAttrs (callPackage ../development/compilers/dotnet {});
 
-  dotnet-sdk = dotnetCorePackages.sdk_2_2;
+  dotnet-sdk = dotnetCorePackages.sdk_2_1;
+
+  dotnet-netcore = dotnetCorePackages.netcore_2_1;
+
+  dotnet-aspnetcore = dotnetCorePackages.aspnetcore_2_1;
 
   dispad = callPackage ../tools/X11/dispad { };
 
