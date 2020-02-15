@@ -3756,7 +3756,8 @@ in {
 
   matrix-client = callPackage ../development/python-modules/matrix-client { };
 
-  mautrix-appservice = callPackage ../development/python-modules/mautrix-appservice { };
+  mautrix = callPackage ../development/python-modules/mautrix { };
+  mautrix-appservice = self.mautrix; # alias 2019-12-28
 
   maya = callPackage ../development/python-modules/maya { };
 
