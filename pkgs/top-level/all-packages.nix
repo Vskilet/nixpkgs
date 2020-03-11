@@ -4239,9 +4239,7 @@ in
 
   ipget = callPackage ../applications/networking/ipget { };
 
-  ipmitool = callPackage ../tools/system/ipmitool {
-    openssl = openssl_1_0_2;
-  };
+  ipmitool = callPackage ../tools/system/ipmitool {};
 
   ipmiutil = callPackage ../tools/system/ipmiutil {};
 
@@ -7942,7 +7940,7 @@ in
 
   eql = callPackage ../development/compilers/eql {};
 
-  elm2nix = haskell.lib.justStaticExecutables haskellPackages.elm2nix;
+  elm2nix = haskell.lib.justStaticExecutables haskellPackages.elm2nix_0_2;
 
   elmPackages = recurseIntoAttrs (callPackage ../development/compilers/elm { });
 
@@ -8924,8 +8922,6 @@ in
     stdenv = gccStdenv;
   };
 
-  inherit (ocaml-ng.ocamlPackages_4_02) trv;
-
   bupc = callPackage ../development/compilers/bupc { };
 
   urn = callPackage ../development/compilers/urn { };
@@ -9697,7 +9693,16 @@ in
 
   bam = callPackage ../development/tools/build-managers/bam {};
 
-  bazel = callPackage ../development/tools/build-managers/bazel {
+  bazel = callPackage ../development/tools/build-managers/bazel/bazel-latest {
+    inherit (darwin) cctools;
+    inherit (darwin.apple_sdk.frameworks) CoreFoundation CoreServices Foundation;
+    buildJdk = jdk8;
+    buildJdkName = "jdk8";
+    runJdk = jdk11_headless;
+    stdenv = if stdenv.cc.isClang then llvmPackages_6.stdenv else stdenv;
+  };
+
+  bazel_1 = callPackage ../development/tools/build-managers/bazel/bazel_1 {
     inherit (darwin) cctools;
     inherit (darwin.apple_sdk.frameworks) CoreFoundation CoreServices Foundation;
     buildJdk = jdk8;
@@ -12414,7 +12419,9 @@ in
 
   libfakekey = callPackage ../development/libraries/libfakekey { };
 
-  libfido2 = callPackage ../development/libraries/libfido2 { };
+  libfido2 = callPackage ../development/libraries/libfido2 {
+    inherit (darwin.apple_sdk.frameworks) IOKit;
+  };
 
   libfilezilla = callPackage ../development/libraries/libfilezilla { };
 
@@ -12560,9 +12567,7 @@ in
 
   libgpiod = callPackage ../development/libraries/libgpiod { };
 
-  libgpod = callPackage ../development/libraries/libgpod {
-    inherit (pkgs.pythonPackages) mutagen;
-  };
+  libgpod = callPackage ../development/libraries/libgpod { };
 
   libgssglue = callPackage ../development/libraries/libgssglue { };
 
@@ -16965,9 +16970,7 @@ in
 
   pam_pgsql = callPackage ../os-specific/linux/pam_pgsql { };
 
-  pam_ssh_agent_auth = callPackage ../os-specific/linux/pam_ssh_agent_auth {
-    openssl = openssl_1_0_2;
-  };
+  pam_ssh_agent_auth = callPackage ../os-specific/linux/pam_ssh_agent_auth { };
 
   pam_u2f = callPackage ../os-specific/linux/pam_u2f { };
 
@@ -18737,9 +18740,7 @@ in
 
   elementary-planner = callPackage ../applications/office/elementary-planner { };
 
-  elinks = callPackage ../applications/networking/browsers/elinks {
-    openssl = openssl_1_0_2;
-  };
+  elinks = callPackage ../applications/networking/browsers/elinks { };
 
   elvis = callPackage ../applications/editors/elvis { };
 
@@ -18906,9 +18907,7 @@ in
 
   fehlstart = callPackage ../applications/misc/fehlstart { };
 
-  fetchmail = callPackage ../applications/misc/fetchmail {
-    openssl = openssl_1_0_2;
-  };
+  fetchmail = callPackage ../applications/misc/fetchmail { };
 
   fff = callPackage ../applications/misc/fff { };
 
