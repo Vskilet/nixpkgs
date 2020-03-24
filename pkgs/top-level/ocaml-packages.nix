@@ -1194,10 +1194,6 @@ let
 
     google-drive-ocamlfuse = callPackage ../applications/networking/google-drive-ocamlfuse { };
 
-    unison = callPackage ../applications/networking/sync/unison {
-      enableX11 = config.unison.enableX11 or true;
-    };
-
     hol_light = callPackage ../applications/science/logic/hol_light { };
 
   })).overrideScope' liftJaneStreet;
@@ -1227,7 +1223,7 @@ in let inherit (pkgs) callPackage; in rec
 
   ocamlPackages_4_10 = mkOcamlPackages (callPackage ../development/compilers/ocaml/4.10.nix { });
 
-  ocamlPackages_latest = ocamlPackages_4_09;
+  ocamlPackages_latest = ocamlPackages_4_10;
 
-  ocamlPackages = ocamlPackages_4_07;
+  ocamlPackages = ocamlPackages_4_08;
 }
