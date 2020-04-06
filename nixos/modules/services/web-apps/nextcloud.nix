@@ -471,7 +471,7 @@ in {
         pools.nextcloud = {
           user = "nextcloud";
           group = "nginx";
-          phpOptions = phpOptionsExtensions + phpOptionsStr;
+          phpOptions = phpOptionsStr;
           phpPackage = phpPackage;
           phpEnv = {
             NEXTCLOUD_CONFIG_DIR = "${cfg.home}/config";
@@ -561,10 +561,11 @@ in {
                 add_header X-Robots-Tag none;
                 add_header X-Download-Options noopen;
                 add_header X-Permitted-Cross-Domain-Policies none;
+                add_header X-Frame-Options sameorigin;
                 add_header Referrer-Policy no-referrer;
                 access_log off;
               '';
-              "~ \\.(?:png|html|ttf|ico|jpg|jpeg)$".extraConfig = ''
+              "~ \\.(?:png|html|ttf|ico|jpg|jpeg|bcmap|mp4|webm)$".extraConfig = ''
                 try_files $uri /index.php$request_uri;
                 access_log off;
               '';
@@ -575,6 +576,7 @@ in {
               add_header X-Robots-Tag none;
               add_header X-Download-Options noopen;
               add_header X-Permitted-Cross-Domain-Policies none;
+              add_header X-Frame-Options sameorigin;
               add_header Referrer-Policy no-referrer;
               add_header Strict-Transport-Security "max-age=15552000; includeSubDomains" always;
               error_page 403 /core/templates/403.php;
