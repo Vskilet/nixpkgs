@@ -1,11 +1,9 @@
-{ buildGoPackage, fetchFromGitHub, stdenv }:
+{ buildGoModule, fetchFromGitHub, fetchpatch, stdenv }:
 
-buildGoPackage rec {
+buildGoModule rec {
   pname = "nginx-sso";
   version = "0.24.1";
   rev = "v${version}";
-
-  goPackagePath = "github.com/Luzifer/nginx-sso";
 
   src = fetchFromGitHub {
     inherit rev;
@@ -14,9 +12,18 @@ buildGoPackage rec {
     sha256 = "1wij0a5ban2l6ahfra4n4dji7i5ndkqk1mgrblwm2ski7bl8yszx";
   };
 
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/nyanloutre/nginx-sso/commit/a0a72804ab484830746e547bef1a2b5ca4e98e1b.patch";
+      sha256 = "1kyp8pzgk3s7g98dk8mad1864v5akcn8p030bdinqn9vx6jrzlv8";
+    })
+  ];
+
+  modSha256 = "0ifka2dcy5j6236hgi3b2bydyl8m1ciwyq2m3jgmlg89hd1zqf6y";
+
   postInstall = ''
-    mkdir -p $bin/share
-    cp -R $src/frontend $bin/share
+    mkdir -p $out/share
+    cp -R $src/frontend $out/share
   '';
 
   meta = with stdenv.lib; {
