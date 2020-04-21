@@ -348,7 +348,6 @@ self: super: {
   optional = dontCheck super.optional;
   orgmode-parse = dontCheck super.orgmode-parse;
   os-release = dontCheck super.os-release;
-  pandoc-crossref = dontCheck super.pandoc-crossref;  # (most likely change when no longer 0.3.2.1) https://github.com/lierdakil/pandoc-crossref/issues/199
   persistent-redis = dontCheck super.persistent-redis;
   pipes-extra = dontCheck super.pipes-extra;
   pipes-websockets = dontCheck super.pipes-websockets;
@@ -907,7 +906,8 @@ self: super: {
   cryptohash-md5 = doJailbreak super.cryptohash-md5;
   text-short = doJailbreak super.text-short;
   gitHUD = dontCheck super.gitHUD;
-  githud = dontCheck super.githud;
+  # broken 20.03
+  githud = markBroken super.githud;
 
   # https://github.com/aisamanra/config-ini/issues/12
   config-ini = dontCheck super.config-ini;
@@ -1415,5 +1415,34 @@ self: super: {
   # https://bitbucket.org/rvlm/hakyll-contrib-hyphenation/src/master/
   # Therefore we jailbreak it.
   hakyll-contrib-hyphenation = doJailbreak super.hakyll-contrib-hyphenation;
+
+  # amqp-utils depends on amqp >= 0.19
+  amqp-utils = super.amqp-utils.override {
+    amqp = dontCheck super.amqp_0_19_1;
+  };
+
+  # 20.03 broken packages
+
+  envy-extensible = markBroken super.envy-extensible;
+  exceptionfree-readfile = markBroken super.exceptionfree-readfile;
+  fcf-containers = markBroken super.fcf-containers;
+  first-class-instances = markBroken super.first-class-instances;
+  flp = markBroken super.flp;
+  hal = markBroken super.hal;
+  hcad = markBroken super.hcad;
+  hedis-envy = markBroken super.hedis-envy;
+  hhwloc = markBroken super.hhwloc;
+  layered-state = markBroken super.layered-state;
+  network-uri-static = markBroken super.network-uri-static;
+  pandoc-plot = markBroken super.pandoc-plot;
+  patch = markBroken super.patch;
+  prologue = markBroken super.prologue;
+  provenience = markBroken super.provenience;
+  refractor = markBroken super.refractor;
+  shwifty = markBroken super.shwifty;
+  smallcheck-kind-generics = markBroken super.smallcheck-kind-generics;
+  traversal-template = markBroken super.traversal-template;
+  vector-text = markBroken super.vector-text;
+  zbar = markBroken super.zbar;
 
 } // import ./configuration-tensorflow.nix {inherit pkgs haskellLib;} self super

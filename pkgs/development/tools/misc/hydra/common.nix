@@ -4,7 +4,8 @@
 , guile, perl, postgresql, nukeReferences, git, boehmgc, nlohmann_json
 , docbook_xsl, openssh, gnused, coreutils, findutils, gzip, lzma, gnutar
 , rpm, dpkg, cdrkit, pixz, lib, boost, autoreconfHook, src ? null, version ? null
-, migration ? false
+, migration ? false, patches ? []
+, tests ? {}
 }:
 
 with stdenv;
@@ -73,7 +74,7 @@ let
 in stdenv.mkDerivation rec {
   pname = "hydra";
 
-  inherit stdenv src version;
+  inherit stdenv src version patches;
 
   buildInputs =
     [ makeWrapper autoconf automake libtool unzip nukeReferences sqlite libpqxx
@@ -123,7 +124,7 @@ in stdenv.mkDerivation rec {
 
   dontStrip = true;
 
-  passthru = { inherit perlDeps migration; };
+  passthru = { inherit perlDeps migration tests; };
 
   meta = with stdenv.lib; {
     description = "Nix-based continuous build system";
