@@ -8878,6 +8878,11 @@ in
   rust-cbindgen = callPackage ../development/tools/rust/cbindgen {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
+
+  rust-cbindgen_0_14_1 = callPackage ../development/tools/rust/cbindgen/0_14_1.nix {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
+
   rustup = callPackage ../development/tools/rust/rustup {
     inherit (darwin.apple_sdk.frameworks) CoreServices Security;
   };
@@ -19376,6 +19381,8 @@ in
   git-quick-stats = callPackage ../development/tools/git-quick-stats {};
 
   git-review = callPackage ../applications/version-management/git-review { };
+
+  github-cli = gitAndTools.gh;
 
   gitolite = callPackage ../applications/version-management/gitolite { };
 
