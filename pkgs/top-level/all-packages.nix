@@ -9518,6 +9518,7 @@ in
   spidermonkey = spidermonkey_38;
 
   ssm-agent = callPackage ../applications/networking/cluster/ssm-agent { };
+  ssm-session-manager-plugin = callPackage ../applications/networking/cluster/ssm-session-manager-plugin { };
 
   supercollider = libsForQt5.callPackage ../development/interpreters/supercollider {
     fftw = fftwSinglePrec;
@@ -19516,10 +19517,6 @@ in
 
   google-play-music-desktop-player = callPackage ../applications/audio/google-play-music-desktop-player {
     inherit (gnome2) GConf;
-  };
-
-  google_talk_plugin = callPackage ../applications/networking/browsers/mozilla-plugins/google-talk-plugin {
-    libpng = libpng12;
   };
 
   gosmore = callPackage ../applications/misc/gosmore { };
