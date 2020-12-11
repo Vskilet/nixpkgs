@@ -1957,6 +1957,10 @@ in {
 
   etelemetry = callPackage ../development/python-modules/etelemetry { };
 
+  etebase = callPackage ../development/python-modules/etebase {
+    inherit (pkgs.darwin.apple_sdk.frameworks) Security;
+  };
+
   etesync = callPackage ../development/python-modules/etesync { };
 
   eth-hash = callPackage ../development/python-modules/eth-hash { };
@@ -3199,6 +3203,8 @@ in {
 
   jsonschema = callPackage ../development/python-modules/jsonschema { };
 
+  jsonstreams = callPackage ../development/python-modules/jsonstreams { };
+
   jsonwatch = callPackage ../development/python-modules/jsonwatch { };
 
   jug = callPackage ../development/python-modules/jug { };
@@ -3381,6 +3387,10 @@ in {
   ledger_agent = callPackage ../development/python-modules/ledger_agent { };
 
   ledgerblue = callPackage ../development/python-modules/ledgerblue { };
+
+  ledgerwallet = callPackage ../development/python-modules/ledgerwallet {
+    inherit (pkgs.darwin.apple_sdk.frameworks) AppKit;
+  };
 
   lektor = callPackage ../development/python-modules/lektor { };
 
@@ -3693,6 +3703,8 @@ in {
   else
     callPackage ../development/python-modules/markdown/3_1.nix { };
 
+  markdown-it-py = callPackage ../development/python-modules/markdown-it-py { };
+
   markdown-macros = callPackage ../development/python-modules/markdown-macros { };
 
   markdownsuperscript = callPackage ../development/python-modules/markdownsuperscript { };
@@ -3831,6 +3843,8 @@ in {
   mmpython = callPackage ../development/python-modules/mmpython { };
 
   mnemonic = callPackage ../development/python-modules/mnemonic { };
+
+  mne-python = callPackage ../development/python-modules/mne-python { };
 
   mnist = callPackage ../development/python-modules/mnist { };
 
@@ -5117,6 +5131,8 @@ in {
 
   pyfttt = callPackage ../development/python-modules/pyfttt { };
 
+  pyfuse3 = callPackage ../development/python-modules/pyfuse3 { };
+
   pyfxa = callPackage ../development/python-modules/pyfxa { };
 
   pygal = callPackage ../development/python-modules/pygal { };
@@ -5710,6 +5726,8 @@ in {
 
   pytest-catchlog = callPackage ../development/python-modules/pytest-catchlog { };
 
+  pytest-celery = callPackage ../development/python-modules/pytest-celery { };
+
   pytest-check = callPackage ../development/python-modules/pytest-check { };
 
   pytest-click = callPackage ../development/python-modules/pytest-click { };
@@ -5816,6 +5834,8 @@ in {
   pytest-socket = callPackage ../development/python-modules/pytest-socket { };
 
   pytest-subtesthack = callPackage ../development/python-modules/pytest-subtesthack { };
+
+  pytest-subtests = callPackage ../development/python-modules/pytest-subtests { };
 
   pytest-sugar = callPackage ../development/python-modules/pytest-sugar { };
 
@@ -6690,6 +6710,8 @@ in {
 
   sfepy = callPackage ../development/python-modules/sfepy { };
 
+  sgmllib3k = callPackage ../development/python-modules/sgmllib3k { };
+
   shamir-mnemonic = callPackage ../development/python-modules/shamir-mnemonic { };
 
   shap = callPackage ../development/python-modules/shap { };
@@ -7559,6 +7581,8 @@ in {
   unittest-xml-reporting = callPackage ../development/python-modules/unittest-xml-reporting { };
 
   unpaddedbase64 = callPackage ../development/python-modules/unpaddedbase64 { };
+
+  unrardll = callPackage ../development/python-modules/unrardll { };
 
   unrpa = callPackage ../development/python-modules/unrpa { };
 
