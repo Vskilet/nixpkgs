@@ -26,7 +26,7 @@
 }:
 
 mkDerivation {
-  name = "kdeconnect-kde";
+  pname = "kdeconnect-kde";
 
   patches = [
     # https://invent.kde.org/network/kdeconnect-kde/-/merge_requests/328
