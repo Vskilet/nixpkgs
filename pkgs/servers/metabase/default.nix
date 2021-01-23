@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, makeWrapper, jre }:
+{ lib, stdenv, fetchurl, makeWrapper, jdk11 }:
 
 stdenv.mkDerivation rec {
   pname = "metabase";
@@ -14,10 +14,10 @@ stdenv.mkDerivation rec {
   dontUnpack = true;
 
   installPhase = ''
-    makeWrapper ${jre}/bin/java $out/bin/metabase --add-flags "-jar $src"
+    makeWrapper ${jdk11}/bin/java $out/bin/metabase --add-flags "-jar $src"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "The easy, open source way for everyone in your company to ask questions and learn from data";
     homepage    = "https://metabase.com";
     license     = licenses.agpl3;

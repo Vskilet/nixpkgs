@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, nixosTests }:
+{ lib, stdenv, fetchurl, nixosTests }:
 
 let
   generic = {
@@ -20,7 +20,7 @@ let
       cp -R . $out/
     '';
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = "Sharing solution for files, calendars, contacts and more";
       homepage = "https://nextcloud.com";
       maintainers = with maintainers; [ schneefux bachp globin fpletz ma27 ];
@@ -58,7 +58,7 @@ in {
   };
 
   nextcloud20 = generic {
-    version = "20.0.4";
-    sha256 = "sha256-Jp8WIuMm9dEeOH04YarU4rDnkzSul+7Vp7M1K6dmFCA=";
+    version = "20.0.5";
+    sha256 = "5c70dd33024012a1651fd099133d052d129a4dadc6935f44bb9c3e2b360befe3";
   };
 }

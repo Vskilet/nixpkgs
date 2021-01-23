@@ -10,14 +10,14 @@
 # hardware problems with a new one.
 
 # Configuration
-{ stdenv, version
+{ lib, stdenv, version
 
 , features ? { grsecurity = false; xen_dom0 = false; }
 }:
 
-with stdenv.lib;
-with stdenv.lib.kernel;
-with (stdenv.lib.kernel.whenHelpers version);
+with lib;
+with lib.kernel;
+with (lib.kernel.whenHelpers version);
 
 let
 
@@ -196,6 +196,11 @@ let
       INET_UDP_DIAG     = module;
       INET_RAW_DIAG     = whenAtLeast "4.14" module;
       INET_DIAG_DESTROY = whenAtLeast "4.9" yes;
+
+      # enable multipath-tcp
+      MPTCP           = whenAtLeast "5.6" yes;
+      MPTCP_IPV6      = whenAtLeast "5.6" yes;
+      INET_MPTCP_DIAG = whenAtLeast "5.9" module;
     };
 
     wireless = {
@@ -416,7 +421,10 @@ let
       SECURITY_APPARMOR                = yes;
       DEFAULT_SECURITY_APPARMOR        = yes;
 
-      SECURITY_LOCKDOWN_LSM            = whenAtLeast "5.4" yes;
+      MODULE_SIG            = no; # r13y, generates a random key during build and bakes it in
+      # Depends on MODULE_SIG and only really helps when you sign your modules
+      # and enforce signatures which we don't do by default.
+      SECURITY_LOCKDOWN_LSM = option no;
     } // optionalAttrs (!stdenv.hostPlatform.isAarch32) {
 
       # Detect buffer overflows on the stack
@@ -654,7 +662,10 @@ let
 
       MODULE_COMPRESS    = yes;
       MODULE_COMPRESS_XZ = yes;
-      KERNEL_XZ          = yes;
+
+      # use zstd for kernel compression if newer than 5.9, else xz.
+      KERNEL_XZ          = whenOlder "5.9" yes;
+      KERNEL_ZSTD        = whenAtLeast "5.9" yes;
 
       SYSVIPC            = yes;  # System-V IPC
 

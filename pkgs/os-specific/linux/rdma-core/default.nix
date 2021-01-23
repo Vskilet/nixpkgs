@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, docutils
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, docutils
 , pandoc, ethtool, iproute, libnl, udev, python, perl
 , makeWrapper
 } :
@@ -17,7 +17,7 @@ in stdenv.mkDerivation {
     sha256 = "04q4z95nxxxjc674qnbwn19bv18nl3x7xwp6aql17h1cw3gdmhw4";
   };
 
-  nativeBuildInputs = [ cmake pkgconfig pandoc docutils makeWrapper ];
+  nativeBuildInputs = [ cmake pkg-config pandoc docutils makeWrapper ];
   buildInputs = [ libnl ethtool iproute udev python perl ];
 
   cmakeFlags = [
@@ -43,7 +43,7 @@ in stdenv.mkDerivation {
     done
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "RDMA Core Userspace Libraries and Daemons";
     homepage = "https://github.com/linux-rdma/rdma-core";
     license = licenses.gpl2;

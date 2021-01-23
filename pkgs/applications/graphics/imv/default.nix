@@ -8,7 +8,7 @@
 , fontconfig
 , meson
 , ninja
-, pkgconfig
+, pkg-config
 , icu
 , pango
 , inih
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     libxslt
     meson
     ninja
-    pkgconfig
+    pkg-config
   ];
 
   buildInputs = [
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A command line image viewer for tiling window managers";
     homepage = "https://github.com/eXeC64/imv";
     license = licenses.gpl2;

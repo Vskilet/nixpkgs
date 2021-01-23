@@ -1,10 +1,10 @@
-{ stdenv
+{ lib, stdenv
 , fetchFromGitHub
 , fetchpatch
 , srt
 , ffmpeg_3_4
 , bc
-, pkgconfig
+, pkg-config
 , perl
 , openssl
 , zlib
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   makeFlags = "release CONFIG_LIBRARY_PATHS= CONFIG_PKG_PATHS= GLOBAL_CC=$(CC) GLOBAL_CXX=$(CXX) GLOBAL_LD=$(CXX) SHELL=${stdenv.shell}";
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ bc pkgconfig perl ];
+  nativeBuildInputs = [ bc pkg-config perl ];
   buildInputs = [ openssl srt zlib ffmpeg libvpx libopus srtp jemalloc pcre2 ];
 
   preBuild = ''
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     install -Dm0644 ../misc/conf_examples/Logger.xml $out/share/examples/edge_conf/Logger.xml
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Open-source streaming video service with sub-second latency";
     homepage    = "https://ovenmediaengine.com";
     license     = licenses.gpl2Only;
