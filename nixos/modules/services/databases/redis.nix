@@ -90,6 +90,13 @@ in {
         example = "/run/redis/redis.sock";
       };
 
+      unixSocketPerm = mkOption {
+        type = types.int;
+        default = 750;
+        description = "Change permissions for the socket";
+        example = 700;
+      };
+
       logLevel = mkOption {
         type = types.str;
         default = "notice"; # debug, verbose, notice, warning
@@ -212,7 +219,6 @@ in {
         '';
         example = literalExample ''
           {
-            unixsocketperm = "700";
             loadmodule = [ "/path/to/my_module.so" "/path/to/other_module.so" ];
           }
         '';
@@ -265,7 +271,7 @@ in {
         slowlog-max-len = cfg.slowLogMaxLen;
       }
       (mkIf (cfg.bind != null) { bind = cfg.bind; })
-      (mkIf (cfg.unixSocket != null) { unixsocket = cfg.unixSocket; })
+      (mkIf (cfg.unixSocket != null) { unixsocket = cfg.unixSocket; unixsocketperm = "${toString cfg.unixSocketPerm}"; })
       (mkIf (cfg.slaveOf != null) { slaveof = "${cfg.slaveOf.ip} ${cfg.slaveOf.port}"; })
       (mkIf (cfg.masterAuth != null) { masterauth = cfg.masterAuth; })
       (mkIf (cfg.requirePass != null) { requirepass = cfg.requirePass; })
