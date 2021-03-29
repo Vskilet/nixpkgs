@@ -5998,20 +5998,19 @@ in
 
   opensm = callPackage ../tools/networking/opensm { };
 
-  openssh =
-    callPackage ../tools/networking/openssh {
-      hpnSupport = false;
-      etcDir = "/etc/ssh";
-      pam = if stdenv.isLinux then pam else null;
-    };
+  opensshPackages = dontRecurseIntoAttrs (callPackage ../tools/networking/openssh {});
 
-  openssh_hpn = pkgs.appendToName "with-hpn" (openssh.override {
-    hpnSupport = true;
-  });
+  openssh = opensshPackages.openssh.override {
+    etcDir = "/etc/ssh";
+  };
 
-  openssh_gssapi = pkgs.appendToName "with-gssapi" (openssh.override {
-    withGssapiPatches = true;
-  });
+  openssh_hpn = opensshPackages.openssh_hpn.override {
+    etcDir = "/etc/ssh";
+  };
+
+  openssh_gssapi = opensshPackages.openssh_gssapi.override {
+    etcDir = "/etc/ssh";
+  };
 
   opensp = callPackage ../tools/text/sgml/opensp { };
 
@@ -17727,6 +17726,13 @@ in
     ];
   };
 
+  linux_5_11 = callPackage ../os-specific/linux/kernel/linux-5.11.nix {
+    kernelPatches = [
+      kernelPatches.bridge_stp_helper
+      kernelPatches.request_key_helper
+    ];
+  };
+
   linux_testing = callPackage ../os-specific/linux/kernel/linux-testing.nix {
     kernelPatches = [
       kernelPatches.bridge_stp_helper
@@ -17961,7 +17967,7 @@ in
 
   # Update this when adding the newest kernel major version!
   # And update linux_latest_for_hardened below if the patches are already available
-  linuxPackages_latest = linuxPackages_5_10;
+  linuxPackages_latest = linuxPackages_5_11;
   linux_latest = linuxPackages_latest.kernel;
 
   # Realtime kernel packages.
@@ -17984,6 +17990,7 @@ in
   linuxPackages_4_19 = recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_19);
   linuxPackages_5_4 = recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_4);
   linuxPackages_5_10 = recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_10);
+  linuxPackages_5_11 = recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_11);
 
   # When adding to the list above:
   # - Update linuxPackages_latest to the latest version
@@ -18021,7 +18028,7 @@ in
   # Hardened Linux
   hardenedLinuxPackagesFor = kernel': overrides:
     let # Note: We use this hack since the hardened patches can lag behind and we don't want to delay updates:
-      linux_latest_for_hardened = pkgs.linux_5_10;
+      linux_latest_for_hardened = pkgs.linux_5_11;
       kernel = (if kernel' == pkgs.linux_latest then linux_latest_for_hardened else kernel').override overrides;
     in linuxPackagesFor (kernel.override {
       structuredExtraConfig = import ../os-specific/linux/kernel/hardened/config.nix {
