@@ -8,16 +8,16 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "metasploit-framework";
-  version = "6.0.26";
+  version = "6.0.37";
 
   src = fetchFromGitHub {
     owner = "rapid7";
     repo = "metasploit-framework";
     rev = version;
-    sha256 = "sha256-ayW0MsV3TQnta+bP9kNL6m3hFPrn6lbsiAbXw7WOmBA=";
+    sha256 = "sha256-q6/1GW02C1z5nQwAKXU7xbVVviwXwS+XS7ZfNjJryiA=";
   };
 
-  buildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
   dontPatchELF = true; # stay away from exploit executables
 

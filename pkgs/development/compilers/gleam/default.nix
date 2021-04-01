@@ -1,27 +1,27 @@
-{ stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, Security }:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "gleam";
-  version = "0.13.2";
+  version = "0.14.3";
 
   src = fetchFromGitHub {
     owner = "gleam-lang";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-ka1GxukX3HR40fMeiiXHguyPKrpGngG2tXDColR7eQA=";
+    sha256 = "sha256-NCLPatJWpvYKM+QdJB/Gfldlz5MQynWZB8o4x4cf5cA=";
   };
 
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [ openssl ] ++
-    stdenv.lib.optionals stdenv.isDarwin [ Security ];
+    lib.optionals stdenv.isDarwin [ Security ];
 
-  cargoSha256 = "sha256-/l54ezS68loljKNh7AdYMIuCiyIbsMI3jqD9ktjZLfc=";
+  cargoSha256 = "sha256-Tvb6QJubV8FS8UER++bEhst7Z0hVw42TCl+wOzZzi8Y=";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A statically typed language for the Erlang VM";
     homepage = "https://gleam.run/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = teams.beam.members;
   };
 }

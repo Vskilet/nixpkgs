@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchurl
 , meson
 , ninja
@@ -9,7 +9,6 @@
 , docbook_xsl
 , docbook_xml_dtd_43
 , gtk3
-, gnome3
 , glade
 , dbus
 , xvfb_run
@@ -23,14 +22,14 @@
 
 stdenv.mkDerivation rec {
   pname = "libhandy";
-  version = "1.0.3";
+  version = "1.2.0";
 
   outputs = [ "out" "dev" "devdoc" "glade" ];
   outputBin = "dev";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-VZuzrMLDYkiJF+ty7SW9wYH0riaslNF3Y0zF00yGf3o=";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    sha256 = "sha256-OfWQriCRDnb+HAYHsuvliXUPRWENau7Fww4u5gKiCyU=";
   };
 
   nativeBuildInputs = [
@@ -80,7 +79,7 @@ stdenv.mkDerivation rec {
       meson test --print-errorlogs
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     changelog = "https://gitlab.gnome.org/GNOME/libhandy/-/tags/${version}";
     description = "Building blocks for modern adaptive GNOME apps";
     homepage = "https://gitlab.gnome.org/GNOME/libhandy";

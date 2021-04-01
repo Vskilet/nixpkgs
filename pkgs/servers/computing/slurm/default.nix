@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation rec {
   pname = "slurm";
-  version = "20.11.2.1";
+  version = "20.11.4.1";
 
   # N.B. We use github release tags instead of https://www.schedmd.com/downloads.php
   # because the latter does not keep older releases.
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     repo = "slurm";
     # The release tags use - instead of .
     rev = "${pname}-${builtins.replaceStrings ["."] ["-"] version}";
-    sha256 = "02vz386ix28yr2lrn9z0hycqmw1d0npvwvx51fhp2mav66rrx79p";
+    sha256 = "sha256-rJCIV+dQaC6kCenp4fyPUYBztOlleZtNzCaaKkDHafg=";
   };
 
   outputs = [ "out" "dev" ];
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.schedmd.com/";
     description = "Simple Linux Utility for Resource Management";
     platforms = platforms.linux;
-    license = licenses.gpl2;
+    license = licenses.gpl2Only;
     maintainers = with maintainers; [ jagajaga markuskowa ];
   };
 }

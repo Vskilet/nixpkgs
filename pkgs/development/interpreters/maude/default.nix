@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip, makeWrapper, flex, bison, ncurses, buddy, tecla
+{ lib, stdenv, fetchurl, unzip, makeWrapper, flex, bison, ncurses, buddy, tecla
 , libsigsegv, gmpxx, cln, yices
 }:
 
@@ -22,12 +22,13 @@ stdenv.mkDerivation {
     sha256 = "b112d7843f65217e3b5a9d40461698ef8dab7cbbe830af21216dfb924dc88a2f";
   };
 
+  nativeBuildInputs = [ unzip ];
   buildInputs = [
-    flex bison ncurses buddy tecla gmpxx libsigsegv makeWrapper unzip cln yices
+    flex bison ncurses buddy tecla gmpxx libsigsegv makeWrapper cln yices
   ];
 
   hardeningDisable = [ "stackprotector" ] ++
-    stdenv.lib.optionals stdenv.isi686 [ "pic" "fortify" ];
+    lib.optionals stdenv.isi686 [ "pic" "fortify" ];
 
   preConfigure = ''
     configureFlagsArray=(
@@ -54,7 +55,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "http://maude.cs.illinois.edu/";
     description = "High-level specification language";
-    license = stdenv.lib.licenses.gpl2Plus;
+    license = lib.licenses.gpl2Plus;
 
     longDescription = ''
       Maude is a high-performance reflective language and system
@@ -66,7 +67,7 @@ stdenv.mkDerivation {
       rewriting logic computation.
     '';
 
-    platforms = stdenv.lib.platforms.unix;
-    maintainers = [ stdenv.lib.maintainers.peti ];
+    platforms = lib.platforms.unix;
+    maintainers = [ lib.maintainers.peti ];
   };
 }

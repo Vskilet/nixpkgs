@@ -1,4 +1,4 @@
-{ stdenv
+{ lib
 , buildPythonPackage
 , pkgs
 , requests
@@ -9,12 +9,12 @@
 }:
 
 buildPythonPackage {
-  inherit (pkgs.mxnet) name version src meta;
+  inherit (pkgs.mxnet) pname version src meta;
 
   buildInputs = [ pkgs.mxnet ];
   propagatedBuildInputs = [ requests numpy graphviz ];
 
-  LD_LIBRARY_PATH = stdenv.lib.makeLibraryPath [ pkgs.mxnet ];
+  LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.mxnet ];
 
   doCheck = !isPy3k;
 

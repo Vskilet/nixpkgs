@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchFromGitHub
 , docbook_xml_dtd_43
 , docbook-xsl-nons
@@ -19,7 +19,7 @@
 
 stdenv.mkDerivation rec {
   pname = "libjcat";
-  version = "0.1.5";
+  version = "0.1.6";
 
   outputs = [ "bin" "out" "dev" "devdoc" "man" "installedTests" ];
 
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     owner = "hughsie";
     repo = "libjcat";
     rev = version;
-    sha256 = "sha256-xf/hzTzhxKJDL5Way0Qbrs8pXCvAQ+ADtgJO2GbEvmc=";
+    sha256 = "sha256-X+mFl0YZpnt6zzvVTGZN7PROVUaQ8ZmU3T0EgyoZX6g=";
   };
 
   patches = [
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Library for reading and writing Jcat files";
     homepage = "https://github.com/hughsie/libjcat";
     license = licenses.lgpl21Plus;
