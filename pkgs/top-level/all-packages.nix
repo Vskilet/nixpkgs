@@ -10524,7 +10524,7 @@ in
   aws-adfs = with python3Packages; toPythonApplication aws-adfs;
 
   inherit (callPackages ../development/tools/electron { })
-    electron electron_3 electron_4 electron_5 electron_6 electron_7 electron_8 electron_9 electron_10 electron_11;
+    electron electron_3 electron_4 electron_5 electron_6 electron_7 electron_8 electron_9 electron_10 electron_11 electron_12;
 
   autobuild = callPackage ../development/tools/misc/autobuild { };
 
@@ -25134,6 +25134,8 @@ in
   pioneer = callPackage ../games/pioneer { };
 
   pioneers = callPackage ../games/pioneers { };
+
+  place-cursor-at = callPackage ../applications/misc/place-cursor-at {};
 
   planetary_annihilation = callPackage ../games/planetaryannihilation { };
 
