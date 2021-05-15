@@ -42,8 +42,8 @@ in rec {
   # see https://community.ui.com/releases / https://www.ui.com/download/unifi
 
   unifiStable = generic {
-    version = "6.0.45";
-    sha256 = "1mph22x2p26q76gh6s714xwsvc03cciy4gx00jv4vhcm28p6nlxy";
+    version = "6.1.71";
+    sha256 = "1lvsq0xpfgwpbzs25khy7bnrhv8i1jgzi8ij75bsh65hfa3rplc2";
   };
 }
 
