@@ -186,6 +186,7 @@ in
         }
       ];
       extraModules = [ "pubsub" ];
+      extraPluginPaths = [ "${pkgs.jitsi-meet-prosody}/share/prosody-plugins" ];
       extraConfig = mkAfter ''
         Component "focus.${cfg.hostName}"
           component_secret = os.getenv("JICOFO_COMPONENT_SECRET")
